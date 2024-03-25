@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34321.82
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "saeedazari.core.common", "saeedazari.core.common\saeedazari.core.common.csproj", "{999CBF2F-8A55-4FCA-AD4E-FD9954CA50A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "saeedazari.core.common", "saeedazari.core.common\saeedazari.core.common.csproj", "{999CBF2F-8A55-4FCA-AD4E-FD9954CA50A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{AF6E3C66-E3D1-4D92-9576-FA7551B4EF35}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{42C863AA-F51B-4973-A68C-547D08C6E10D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +22,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{999CBF2F-8A55-4FCA-AD4E-FD9954CA50A7} = {AF6E3C66-E3D1-4D92-9576-FA7551B4EF35}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6F2D84C4-4F85-45DF-B649-C63257B74FB0}
