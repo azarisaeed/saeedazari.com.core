@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Title>Saeed Azari domain service base</Title>
+    <Authors>Saeed Azari</Authors>
+    <VersionPrefix>1.1.0</VersionPrefix>
+    <Copyright>Saeed azari</Copyright>
+    <FileVersion>$(VersionPrefix)</FileVersion>
+    <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SaeedAzari.Core.Repositories.Abstractions" Version="1.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Readme.md">
+      <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
+    </None>
+  </ItemGroup>
+</Project>
