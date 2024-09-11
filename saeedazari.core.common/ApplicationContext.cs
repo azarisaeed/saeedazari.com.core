@@ -1,4 +1,5 @@
 ﻿
+
 using Microsoft.AspNetCore.Http;
 
 namespace SaeedAzari.core.Common;
@@ -17,7 +18,7 @@ public class ApplicationContext : IApplicationContext
         SessionId = AcceSSOr.HttpContext?.Request?.Headers?.FirstOrDefault(_ => _.Key.Equals(SidHeaderKey, StringComparison.OrdinalIgnoreCase)).Value;
         UserName = AcceSSOr.HttpContext?.User?.Identity?.Name;
         UserIp = AcceSSOr.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-        Language = AcceSSOr.HttpContext?.Request?.GetTypedHeaders().AcceptLanguage.FirstOrDefault()?.Value.Value ?? "en-US";
+        Language = AcceSSOr.HttpContext?.Request?.Headers["Accept-Language"].ToString().Split(";").FirstOrDefault()?.Split(",").FirstOrDefault() ?? "en-US";
     }
 
     public string TraceId { get; set; }

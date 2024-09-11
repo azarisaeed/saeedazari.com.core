@@ -1,17 +1,15 @@
-﻿
-using SaeedAzari.core.entities;
+﻿using SaeedAzari.core.entities;
 using SaeedAzari.Core.Repositories.Abstractions.Interfaces;
 using SaeedAzari.Core.Services.Abstractions.Interface;
 
-namespace SaeedAzari.Core.Services.Impeliments
+namespace SaeedAzari.Core.Services.Impeliments.Contexed
 {
-    public class EntityService<TKey, TEntity, TRepository>(TRepository repository) : IEntityService<TKey, TEntity>
-      where TKey : IEquatable<TKey>
-      where TEntity : IAbstractEntity<TKey>
-      where TRepository : IEntityRepository<TKey, TEntity>
+    public class EntityService<TKey, TEntity>(IEntityRepository<TKey, TEntity> repository) : IEntityService<TKey, TEntity>
+    where TKey : IEquatable<TKey>
+    where TEntity : IAbstractEntity<TKey>
 
     {
-        protected readonly TRepository Repository = repository;
+        protected readonly IEntityRepository<TKey, TEntity> Repository = repository;
 
         public virtual async Task Delete(TKey id, CancellationToken cancellationToken = default)
         {
@@ -84,12 +82,8 @@ namespace SaeedAzari.Core.Services.Impeliments
         }
     }
 
-    public class EntityService<TEntity, TRepository> : EntityService<Guid, TEntity, TRepository>, IEntityService<TEntity>
+    public class EntityService<TEntity>(IEntityRepository<TEntity> repository) : EntityService<Guid, TEntity>(repository), IEntityService<TEntity>
         where TEntity : IEntity
-        where TRepository : IEntityRepository<TEntity>
     {
-        public EntityService(TRepository repository) : base(repository)
-        {
-        }
     }
 }

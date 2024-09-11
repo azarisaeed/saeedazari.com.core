@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <Title>Saeed Azari  Enums  descriptor</Title>
     <Authors>Saeed Azari</Authors>
-    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionPrefix>1.2.0</VersionPrefix>
     <Copyright>Saeed azari</Copyright>
     <FileVersion>$(VersionPrefix)</FileVersion>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>

@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <Title>Saeed Azari domain service base</Title>
     <Authors>Saeed Azari</Authors>
-    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionPrefix>1.2.0</VersionPrefix>
     <Copyright>Saeed azari</Copyright>
     <FileVersion>$(VersionPrefix)</FileVersion>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SaeedAzari.Core.Repositories.Abstractions" Version="1.1.0" />
+    <PackageReference Include="SaeedAzari.Core.Repositories.Abstractions" Version="1.2.1" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Readme.md">

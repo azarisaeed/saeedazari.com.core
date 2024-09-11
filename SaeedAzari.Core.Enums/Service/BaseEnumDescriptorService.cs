@@ -3,7 +3,7 @@ using SaeedAzari.Core.Enums.Attributes;
 
 namespace SaeedAzari.Core.Enums
 {
-    public class BaseEnumDescriptorService<T> : IEnumService<T>
+    public class BaseEnumDescriptorService<T> : IEnumService<T> where T : System.Enum
     {
 
 
@@ -73,7 +73,7 @@ namespace SaeedAzari.Core.Enums
             if (Items.TryGetValue(key, out string? value))
                 return value;
             else
-                throw new KeyNotFoundException("The (" + key.ToString + ") key was not present in the EnumService(Of " + typeof(T).Name + ").");
+                throw new KeyNotFoundException($"The ({  key.ToString() }) key was not present in the EnumService(Of { typeof(T).Name }).");
         }
     }
 }

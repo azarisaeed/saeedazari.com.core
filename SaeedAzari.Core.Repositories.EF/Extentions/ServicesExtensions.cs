@@ -14,8 +14,6 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddScoped(typeof(IEntityRepository<>), typeof(EntityRepository<>));
             services.AddScoped(typeof(IEntityRepository<,>), typeof(EntityRepository<,>));
-            services.AddScoped(typeof(IAuditEntityRepository<>), typeof(AuditEntityRepository<>));
-            services.AddScoped(typeof(IAuditEntityRepository<,>), typeof(AuditEntityRepository<,>));
             services.AddSingleton(provider =>
             {
                 var configuration = provider.GetService<IConfiguration>();
@@ -27,8 +25,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 return new Option<TSqlserverDbContext>(configuration.GetConnectionString(connectionString));
             });
 
-            services.AddScoped<TSqlserverDbContext>();
-            services.AddScoped<CoreDBContext, TSqlserverDbContext>();
+            services.AddTransient<TSqlserverDbContext>();
+            services.AddTransient<CoreDBContext, TSqlserverDbContext>();
             return services;
 
         }

@@ -47,7 +47,7 @@ namespace SaeedAzari.Core.Repositories.EF
         public virtual async Task DeleteMany(IEnumerable<TEntity> Entities, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            Db.RemoveRange(Entities);
+            Db.RemoveRange((IEnumerable<object>)Entities);
             await Db.SaveChangesAsync(cancellationToken);
         }
         public virtual async Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken = default)
@@ -69,7 +69,7 @@ namespace SaeedAzari.Core.Repositories.EF
         public virtual async Task CreateMany(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            await Db.AddRangeAsync(entities);
+            await Db.AddRangeAsync((IEnumerable<object>)entities, cancellationToken);
             await Db.SaveChangesAsync(cancellationToken);
         }
 

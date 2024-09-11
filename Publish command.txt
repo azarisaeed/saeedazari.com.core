@@ -1,0 +1,4 @@
+dotnet pack [projectname]   -o .\Packages\ 
+
+for local => nuget init .\Packages D:\test
+

@@ -2,7 +2,7 @@
 
 namespace SaeedAzari.Core.Services.Abstractions.Interface;
 
-public interface IEntityService<TKey, TEntity> 
+public interface IEntityService<TKey, TEntity>
     where TKey : IEquatable<TKey>
     where TEntity : IAbstractEntity<TKey>
 {

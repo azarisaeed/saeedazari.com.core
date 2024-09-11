@@ -11,12 +11,10 @@ namespace SaeedAzari.Core.Repositories.Abstractions.Extensions
         {
             var entityType = typeof(TSource);
             var ordebyTypesname = orderbyType.ToString();
-            //Create x=>x.PropName
             var propertyInfo = entityType.GetProperty(propertyName);
             ParameterExpression arg = Expression.Parameter(entityType, "x");
             MemberExpression property = Expression.Property(arg, propertyName);
             var selector = Expression.Lambda(property, [arg]);
-            //Get System.Linq.Queryable.OrderBy() method.
             var enumarableType = typeof(Queryable);
             var method = enumarableType.GetMethods()
                  .Where(m => m.Name == ordebyTypesname && m.IsGenericMethodDefinition)
@@ -78,14 +76,15 @@ namespace SaeedAzari.Core.Repositories.Abstractions.Extensions
         {
             var now = DateTime.Now;
             var userName = appContext.UserName;
-            foreach (var entity in entities)
-            {
+            var s = entities.ToList();
+            s.ForEach(entity => {
                 entity.CreatedDate = now;
                 entity.CreatedBy = userName;
                 entity.LastUpdatedDate = now;
                 entity.LastUpdatedBy = userName;
-            }
-            return entities;
+            });
+
+            return s.AsEnumerable();
         }
 
         public static IEnumerable<TEntity> SetPropertiesOnUpdate<TKey, TEntity>(this IEnumerable<TEntity> entities, IApplicationContext appContext) where TKey : IEquatable<TKey>
@@ -93,14 +92,14 @@ namespace SaeedAzari.Core.Repositories.Abstractions.Extensions
         {
             var now = DateTime.Now;
             var userName = appContext.UserName;
-            foreach (var entity in entities)
+            var s = entities.ToList();
+            foreach (var entity in s)
             {
                 entity.LastUpdatedDate = now;
                 entity.LastUpdatedBy = userName;
             }
-            return entities;
+            return s.AsEnumerable();
         }
-
 
 
 

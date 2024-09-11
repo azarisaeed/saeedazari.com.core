@@ -1,5 +1,5 @@
 ﻿using SaeedAzari.Core.Services.Abstractions.Interface;
-using SaeedAzari.Core.Services.Impeliments;
+using SaeedAzari.Core.Services.Impeliments.Contexed;
 
 namespace Microsoft.Extensions.DependencyInjection
 
@@ -10,8 +10,6 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddScoped(typeof(IEntityService<>), typeof(EntityService<>));
             services.AddScoped(typeof(IEntityService<,>), typeof(EntityService<,>));
-            services.AddScoped(typeof(IAuditEntityService<>), typeof(AuditEntityService<>));
-            services.AddScoped(typeof(IAuditEntityService<,>), typeof(AuditEntityService<,>));
 
             return services;
         }
