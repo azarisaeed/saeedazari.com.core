@@ -3,8 +3,7 @@ using SaeedAzari.Core.Enums.Attributes;
 
 namespace SaeedAzari.Core.Enums
 {
-    [Obsolete("BaseEnumDescriptorService is deprecated, please use Descriptor instead.", true)]
-    public class BaseEnumDescriptorService<T> : IEnumService<T> where T : System.Enum
+    public class Descriptor<T> : IEnumService<T> where T : System.Enum
     {
 
 
@@ -67,14 +66,27 @@ namespace SaeedAzari.Core.Enums
             var res = Items.ToDictionary(i => i.Key.ToString(), i => i.Value);
             return res;
         }
-
+        public Dictionary<TType, string> AsDic<TType>() where TType : struct
+        {
+            var res = Items.ToDictionary(i => (TType)Convert.ChangeType(i.Key, typeof(TType)), i => i.Value);
+            return res;
+        }
 
         public string GetById(T key)
         {
             if (Items.TryGetValue(key, out string? value))
                 return value;
             else
-                throw new KeyNotFoundException($"The ({  key.ToString() }) key was not present in the EnumService(Of { typeof(T).Name }).");
+                throw new KeyNotFoundException("The (" + key.ToString() + ") key was not present in the EnumService(Of " + typeof(T).Name + ").");
+        }
+        public string GetById<TType>(TType key) where TType : struct
+        {
+
+            
+            if (Items.TryGetValue((T)Convert.ChangeType(key, typeof(T)), out string? value))
+                return value;
+            else
+                throw new KeyNotFoundException("The (" + key.ToString() + ") key was not present in the EnumService(Of " + typeof(T).Name + ").");
         }
     }
 }
