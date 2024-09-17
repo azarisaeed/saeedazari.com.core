@@ -3,35 +3,24 @@ using SaeedAzari.Core.Enums.Attributes;
 
 namespace SaeedAzari.Core.Enums
 {
-    public class Descriptor<T> : IEnumService<T> where T : System.Enum
+    public class Descriptor<T> : IDescriptor<T> where T : struct, System.Enum
     {
-
-
-        public Dictionary<T, string> Init()
+        public Descriptor()
         {
-
-            var enumType = typeof(T);
-            if (!enumType.IsEnum)
-                throw new ArgumentException("T must be an enumerated type");
-
-            var enumValArray = System.Enum.GetValues(enumType);
-
+            var enumValArray = System.Enum.GetValues<T>();
             var dic = new Dictionary<T, string>();
-
             foreach (var val in enumValArray)
             {
-                var enumValue = (T)System.Enum.Parse(enumType, val.ToString());
-                var enumText = GetEnumDescription(enumValue);
-                if (dic.TryGetValue(enumValue, out string? value))
-                    throw new Exception($"Enum {enumText} and {value} has same value {enumValue}");
-                dic.Add(enumValue, enumText);
+                var enumText = GetEnumDescription(val);
+                if (dic.TryGetValue(val, out string? value))
+                    throw new Exception($"Enum {enumText} and {value} has same value {val}");
+                dic.Add(val, enumText);
             }
-
-            return dic;
-
+            Items = dic;
         }
 
-        private string GetEnumDescription(object enu)
+        public  Dictionary<T, string> Items { get; set; }
+        private string GetEnumDescription(T enu)
         {
             var enumType = enu.GetType();
             var enumValue = enumType.GetField(enu.ToString());
@@ -43,20 +32,8 @@ namespace SaeedAzari.Core.Enums
             return descriptor[0].Description;
 
         }
-
-
-        public Dictionary<T, string> Items => GetItems();
-
-
-        private Dictionary<T, string> GetItems()
-        {
-            return Init();
-
-        }
-
         public Dictionary<T, string> GetAll()
         {
-
             return Items;
         }
 
@@ -82,7 +59,7 @@ namespace SaeedAzari.Core.Enums
         public string GetById<TType>(TType key) where TType : struct
         {
 
-            
+
             if (Items.TryGetValue((T)Convert.ChangeType(key, typeof(T)), out string? value))
                 return value;
             else

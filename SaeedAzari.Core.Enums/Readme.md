@@ -16,4 +16,4 @@ this packages includes follwoing
 add `EnumDescriptorAttribute` as attribute to enums
 
 ### Service Usage
-Just inherit or create instance of `BaseEnumDescriptorService`
+Just inherit or inject instance of `Descriptor<>` or `IDescriptor<>`

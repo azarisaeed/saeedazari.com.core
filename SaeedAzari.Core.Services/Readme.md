@@ -11,7 +11,6 @@ this packages includes follwoing
 
 - Implemimentaion for repository Services interfaces
 
-Inherits AuditEntityService for audit entities
 Inherits EntityService for entities
 
 ### Inject service

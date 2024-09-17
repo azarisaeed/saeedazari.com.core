@@ -10,10 +10,8 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class RepositoriesExtensions
     {
         public static IServiceCollection AddSqlServer<TSqlserverDbContext>(this IServiceCollection services, string connectionString)
-           where TSqlserverDbContext : CoreDBContext
+          where TSqlserverDbContext : CoreDBContext
         {
-            services.AddScoped(typeof(IEntityRepository<>), typeof(EntityRepository<>));
-            services.AddScoped(typeof(IEntityRepository<,>), typeof(EntityRepository<,>));
             services.AddSingleton(provider =>
             {
                 var configuration = provider.GetService<IConfiguration>();
@@ -24,6 +22,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 var configuration = provider.GetService<IConfiguration>();
                 return new Option<TSqlserverDbContext>(configuration.GetConnectionString(connectionString));
             });
+            services.AddScoped(typeof(IEntityRepository<>), typeof(EntityRepository<>));
+            services.AddScoped(typeof(IEntityRepository<,>), typeof(EntityRepository<,>));
 
             services.AddTransient<TSqlserverDbContext>();
             services.AddTransient<CoreDBContext, TSqlserverDbContext>();

@@ -6,18 +6,21 @@
     <Nullable>enable</Nullable>
     <Title>Saeed Azari domain service base</Title>
     <Authors>Saeed Azari</Authors>
-    <VersionPrefix>1.2.0</VersionPrefix>
+    <VersionPrefix>1.2.2</VersionPrefix>
     <Copyright>Saeed azari</Copyright>
     <FileVersion>$(VersionPrefix)</FileVersion>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SaeedAzari.Core.Repositories.Abstractions" Version="1.2.1" />
+    <PackageReference Include="SaeedAzari.Core.Repositories.Abstractions" Version="1.2.2" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="LICENSE.txt" Pack="true" PackagePath="" />
     <None Update="Readme.md">
       <PackagePath>\</PackagePath>
       <Pack>True</Pack>

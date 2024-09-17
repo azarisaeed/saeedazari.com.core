@@ -6,15 +6,19 @@
     <Nullable>enable</Nullable>
     <Title>Saeed Azari  Enums  descriptor</Title>
     <Authors>Saeed Azari</Authors>
-    <VersionPrefix>1.3.0</VersionPrefix>
+    <VersionPrefix>1.4.2</VersionPrefix>
     <Copyright>Saeed azari</Copyright>
     <FileVersion>$(VersionPrefix)</FileVersion>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="LICENSE.txt" Pack="true" PackagePath="" />
+
     <None Include="Readme.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -22,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
   </ItemGroup>
 
 </Project>

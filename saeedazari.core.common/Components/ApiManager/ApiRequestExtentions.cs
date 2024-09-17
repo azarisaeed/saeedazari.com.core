@@ -5,15 +5,18 @@ namespace saeedazari.core.common.Components.ApiManager
 {
     public static class ApiRequestExtentions
     {
-        public static string Serialize(this object data)
+        public static string Serialize<T>(this T data) where T : class
         {
+            if (data.GetType() == typeof(string))
+                return (string)(object)data;
             if (data.GetType() == typeof(DataTable))
-                return JsonConvert.SerializeObject(((DataTable)data).DataTableToDataModel());
+                return JsonConvert.SerializeObject(((DataTable)(object)data).DataTableToDataModel());
             else if (data.GetType() == typeof(DataSet))
-                return JsonConvert.SerializeObject(((DataSet)data).Tables[0].DataTableToDataModel());
+                return JsonConvert.SerializeObject(((DataSet)(object)data).Tables[0].DataTableToDataModel());
             else
                 return JsonConvert.SerializeObject(data);
         }
+
         public static List<Dictionary<string, object>> DataTableToDataModel(this DataTable data)
         {
             var result = new List<Dictionary<string, object>>();
@@ -30,5 +33,6 @@ namespace saeedazari.core.common.Components.ApiManager
         {
             return JsonConvert.DeserializeObject<T>(jsonString);
         }
+
     }
 }

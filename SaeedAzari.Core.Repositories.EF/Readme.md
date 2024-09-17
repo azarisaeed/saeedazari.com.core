@@ -6,6 +6,10 @@ Install the package with NuGet:
 dotnet add package SaeedAzari.Core.Repositories.EF
 ```
 
+
+`TSqlserverDbContext` inherited from `CoreDBContext`
+
+
 this packages includes follwoing 
 
 - Implemimentaion for database repository interfaces
@@ -23,4 +27,3 @@ Just put the following code in Program.cs:
 ```
 
 
-`TSqlserverDbContext` inherited from `CoreDBContext`

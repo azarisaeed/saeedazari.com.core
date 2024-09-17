@@ -24,6 +24,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Publish command.txt = Publish command.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreData", "CoreData", "{CEE209C0-78F5-44B8-AE45-D8329102C20D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaeedAzari.Core.CoreData.Abstraction", "SaeedAzari.Core.CoreData.Abstraction\SaeedAzari.Core.CoreData.Abstraction.csproj", "{6D174F93-32E1-4ABE-A2D4-5E9E81452E96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +54,10 @@ Global
 		{C56CB14B-EDF4-4201-9FB7-E415DC0E3C69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C56CB14B-EDF4-4201-9FB7-E415DC0E3C69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C56CB14B-EDF4-4201-9FB7-E415DC0E3C69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D174F93-32E1-4ABE-A2D4-5E9E81452E96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D174F93-32E1-4ABE-A2D4-5E9E81452E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D174F93-32E1-4ABE-A2D4-5E9E81452E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D174F93-32E1-4ABE-A2D4-5E9E81452E96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,7 @@ Global
 		{6821C57B-7E7E-4CFB-8BB3-C18E9C2FB1A6} = {42C863AA-F51B-4973-A68C-547D08C6E10D}
 		{C7AFFD1C-7C00-4CAE-AC30-50FD72318636} = {AF6E3C66-E3D1-4D92-9576-FA7551B4EF35}
 		{C56CB14B-EDF4-4201-9FB7-E415DC0E3C69} = {D71ECFB2-6833-43F2-A651-18559A8ACF1B}
+		{6D174F93-32E1-4ABE-A2D4-5E9E81452E96} = {CEE209C0-78F5-44B8-AE45-D8329102C20D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6F2D84C4-4F85-45DF-B649-C63257B74FB0}

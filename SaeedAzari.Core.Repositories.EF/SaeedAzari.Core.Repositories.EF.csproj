@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <VersionPrefix>1.2.1</VersionPrefix>
+    <VersionPrefix>1.2.2</VersionPrefix>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -11,6 +11,8 @@
     <Description>Base classes to work with entity framework database</Description>
     <Copyright>Saeed Azari</Copyright>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,9 +22,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
-    <PackageReference Include="SaeedAzari.Core.Repositories.Abstractions" Version="1.2.1" />
+    <PackageReference Include="SaeedAzari.Core.Repositories.Abstractions" Version="1.2.2" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="LICENSE.txt" Pack="true" PackagePath="" />
+
     <None Update="Readme.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

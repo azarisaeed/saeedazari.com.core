@@ -12,6 +12,5 @@ this packages includes follwoing
 - interfaces for database repository implmentation
 - some extentions for working ith data
 
-Impeliment IAuditEntityRepository for audit entities
 Impeliment IEntityRepository for entities
 Impeliment IEntityRepositoryHistorical for entities historical

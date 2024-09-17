@@ -15,15 +15,14 @@ using SaeedAzari.Core.Repositories.Abstractions.Extensions;
 namespace SaeedAzari.Core.Repositories.EF
 {
     public class EntityRepository<TKey, TEntity, TContext>(TContext Db, IApplicationContext applicationContext) : IEntityRepository<TKey, TEntity>
-        where TKey : IEquatable<TKey>
-        where TEntity : IEntity<TKey>
-       where TContext : CoreDBContext
+          where TKey : IEquatable<TKey>
+          where TEntity : IEntity<TKey>
+         where TContext : CoreDBContext
     {
         protected readonly IQueryable<TEntity> Collection = (IQueryable<TEntity>)((IDbSetCache)Db).GetOrAddSet(Db.GetDependencies().SetSource, typeof(TEntity));
         protected readonly DatabaseFacade SqlServerDatabase = Db.Database;
         protected readonly TContext Db = Db;
-        protected readonly IApplicationContext ApplicationContext = applicationContext;
-
+        public IApplicationContext ApplicationContext => applicationContext;
         public virtual async Task Delete(TKey id, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -98,15 +97,15 @@ namespace SaeedAzari.Core.Repositories.EF
         }
         public virtual async Task<TEntity?> GetById(TKey id, CancellationToken cancellationToken = default)
         {
-            IEnumerable<TEntity> Items = await Find(s => s.Id.Equals(id), cancellationToken);
-            TEntity? Item = Items.FirstOrDefault();
+            IQueryable<TEntity> Items = Collection.Where(s => s.Id.Equals(id));
+            TEntity? Item = await Items.FirstOrDefaultAsync(cancellationToken);
             //Db.Entry(Item).State = EntityState.Detached;
             return Item;
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetByIds(IEnumerable<TKey> ids, CancellationToken cancellationToken = default)
         {
-            return await Find(s => ids.Contains(s.Id), cancellationToken);
+            return await Collection.Where(s => ids.Contains(s.Id)).ToListAsync(cancellationToken);
         }
         public virtual async Task<IListResult<TEntity>> Find(IBaseSearchModel<TKey, TEntity> SearchModel, CancellationToken cancellationToken = default)
         {
@@ -149,7 +148,7 @@ namespace SaeedAzari.Core.Repositories.EF
 
 
     }
-   
+
 
     public class EntityRepository<TEntity, TContext>(TContext SqlServerDbContext, IApplicationContext applicationContext) : EntityRepository<Guid, TEntity, TContext>(SqlServerDbContext, applicationContext), IEntityRepository<TEntity>
        where TEntity : IEntity
@@ -169,5 +168,5 @@ namespace SaeedAzari.Core.Repositories.EF
         }
 
     }
-   
+
 }
