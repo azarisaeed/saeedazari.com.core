@@ -25,8 +25,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped(typeof(IEntityRepository<>), typeof(EntityRepository<>));
             services.AddScoped(typeof(IEntityRepository<,>), typeof(EntityRepository<,>));
 
-            services.AddTransient<TSqlserverDbContext>();
-            services.AddTransient<CoreDBContext, TSqlserverDbContext>();
+            services.AddScoped<TSqlserverDbContext>();
+            services.AddScoped<CoreDBContext, TSqlserverDbContext>();
             return services;
 
         }

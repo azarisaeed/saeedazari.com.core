@@ -8,7 +8,7 @@ using SaeedAzari.Core.Repositories.EF.Context;
 namespace SaeedAzari.Core.Repositories.EF.Contexed
 {
     public class AuditEntityRepository<TKey, TEntity>(CoreDBContext efDbContext, IApplicationContext applicationContext) : EntityRepository<TKey, TEntity>(efDbContext, applicationContext), IEntityRepository<TKey, TEntity>
-         where TEntity : IAuditEntity<TKey>
+         where TEntity : class, IAuditEntity<TKey>
          where TKey : IEquatable<TKey>
     {
 
@@ -16,7 +16,7 @@ namespace SaeedAzari.Core.Repositories.EF.Contexed
 
     }
     public class AuditEntityRepository<TEntity>(CoreDBContext efDbContext, IApplicationContext applicationContext) : AuditEntityRepository<Guid, TEntity>(efDbContext, applicationContext), IEntityRepository<TEntity>
-       where TEntity : IAuditEntity
+       where TEntity : class, IAuditEntity
 
     {
 

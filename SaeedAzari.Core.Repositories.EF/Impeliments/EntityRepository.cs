@@ -16,97 +16,56 @@ namespace SaeedAzari.Core.Repositories.EF
 {
     public class EntityRepository<TKey, TEntity, TContext>(TContext Db, IApplicationContext applicationContext) : IEntityRepository<TKey, TEntity>
           where TKey : IEquatable<TKey>
-          where TEntity : IEntity<TKey>
+          where TEntity : class, IEntity<TKey>
          where TContext : CoreDBContext
     {
-        protected readonly IQueryable<TEntity> Collection = (IQueryable<TEntity>)((IDbSetCache)Db).GetOrAddSet(Db.GetDependencies().SetSource, typeof(TEntity));
-        protected readonly DatabaseFacade SqlServerDatabase = Db.Database;
-        protected readonly TContext Db = Db;
+        protected DbSet<TEntity> Collection => Db.Set<TEntity>();
+        protected TContext DataBase => Db;
         public IApplicationContext ApplicationContext => applicationContext;
-        public virtual async Task Delete(TKey id, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-            var entity = await GetById(id, cancellationToken);
-            await Delete(entity, cancellationToken);
-        }
-        public virtual async Task Delete(TEntity entity, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-            Db.Remove(entity);
-            await Db.SaveChangesAsync(cancellationToken);
-        }
+        public virtual Task Delete(TKey id, CancellationToken cancellationToken = default) =>
+            Collection.Where(i => i.Id.Equals(id)).ExecuteDeleteAsync(cancellationToken);
 
-        public virtual async Task DeleteMany(IEnumerable<TKey> ids, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-            var entities = await GetByIds(ids, cancellationToken);
-            await DeleteMany(entities, cancellationToken);
-        }
+        public virtual Task Delete(TEntity entity, CancellationToken cancellationToken = default) =>
+            Collection.Where(i => i.Id.Equals(entity.Id)).ExecuteDeleteAsync(cancellationToken);
 
-        public virtual async Task DeleteMany(IEnumerable<TEntity> Entities, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-            Db.RemoveRange((IEnumerable<object>)Entities);
-            await Db.SaveChangesAsync(cancellationToken);
-        }
-        public virtual async Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
+        public virtual Task DeleteMany(IEnumerable<TKey> ids, CancellationToken cancellationToken = default) =>
+            Collection.Where(i => ids.Contains(i.Id)).ExecuteDeleteAsync(cancellationToken);
 
-            return await Collection.ToListAsync(cancellationToken: cancellationToken);
-        }
+        public virtual Task DeleteMany(IEnumerable<TEntity> Entities, CancellationToken cancellationToken = default) =>
+            Collection.Where(i => Entities.Select(i => i.Id).Contains(i.Id)).ExecuteDeleteAsync(cancellationToken);
 
-        public virtual async Task Create(TEntity entity, CancellationToken cancellationToken = default)
+        public virtual Task<List<TEntity>> GetAll(CancellationToken cancellationToken = default) =>
+            Collection.ToListAsync(cancellationToken: cancellationToken);
+
+        public virtual Task Create(TEntity entity, CancellationToken cancellationToken = default)
         {
-            cancellationToken.ThrowIfCancellationRequested();
             Db.Add(entity);
-            await Db.SaveChangesAsync(cancellationToken);
+            return Db.SaveChangesAsync(cancellationToken);
+        }
 
+        public virtual Task CreateMany(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        {
+            Db.AddRange(entities);
+            return Db.SaveChangesAsync(cancellationToken);
         }
 
 
-        public virtual async Task CreateMany(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+        public virtual Task Update(TEntity entity, CancellationToken cancellationToken = default)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-            await Db.AddRangeAsync((IEnumerable<object>)entities, cancellationToken);
-            await Db.SaveChangesAsync(cancellationToken);
-        }
-
-
-        public virtual async Task Update(TEntity entity, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
             Db.Update(entity);
-            await Db.SaveChangesAsync(cancellationToken);
+            return Db.SaveChangesAsync(cancellationToken);
         }
 
-        public virtual async Task<IEnumerable<TEntity>> Find(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
+        public virtual Task<List<TEntity>> Find(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default) =>
+            Collection.Where(filter).ToListAsync(cancellationToken: cancellationToken);
 
-            var findResult = Collection.Where(filter);
-            return await findResult.ToListAsync(cancellationToken: cancellationToken);
-        }
+        public virtual Task<bool> Any(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default) =>
+            Collection.Where(filter).AnyAsync(cancellationToken: cancellationToken);
+        public virtual Task<TEntity?> GetById(TKey id, CancellationToken cancellationToken = default) =>
+            Collection.Where(s => s.Id.Equals(id)).FirstOrDefaultAsync(cancellationToken);
 
-        public virtual async Task<bool> Any(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            var findResult = Collection.Where(filter);
-            return await findResult.AnyAsync(cancellationToken: cancellationToken);
-        }
-        public virtual async Task<TEntity?> GetById(TKey id, CancellationToken cancellationToken = default)
-        {
-            IQueryable<TEntity> Items = Collection.Where(s => s.Id.Equals(id));
-            TEntity? Item = await Items.FirstOrDefaultAsync(cancellationToken);
-            //Db.Entry(Item).State = EntityState.Detached;
-            return Item;
-        }
-
-        public virtual async Task<IEnumerable<TEntity>> GetByIds(IEnumerable<TKey> ids, CancellationToken cancellationToken = default)
-        {
-            return await Collection.Where(s => ids.Contains(s.Id)).ToListAsync(cancellationToken);
-        }
+        public virtual Task<List<TEntity>> GetByIds(IEnumerable<TKey> ids, CancellationToken cancellationToken = default) =>
+             Collection.Where(s => ids.Contains(s.Id)).ToListAsync(cancellationToken);
         public virtual async Task<IListResult<TEntity>> Find(IBaseSearchModel<TKey, TEntity> SearchModel, CancellationToken cancellationToken = default)
         {
 
@@ -141,17 +100,12 @@ namespace SaeedAzari.Core.Repositories.EF
             return new ListResult<TEntity>(items, totalCount, SearchModel.PageNumber, SearchModel.RecordCount);
         }
 
-        public IQueryable<TEntity> AsQueryable()
-        {
-            return Collection;
-        }
-
-
+        public IQueryable<TEntity> AsQueryable() => Collection;
     }
 
 
     public class EntityRepository<TEntity, TContext>(TContext SqlServerDbContext, IApplicationContext applicationContext) : EntityRepository<Guid, TEntity, TContext>(SqlServerDbContext, applicationContext), IEntityRepository<TEntity>
-       where TEntity : IEntity
+       where TEntity : class, IEntity
         where TContext : CoreDBContext
     {
         public override Task Create(TEntity entity, CancellationToken cancellationToken = default)

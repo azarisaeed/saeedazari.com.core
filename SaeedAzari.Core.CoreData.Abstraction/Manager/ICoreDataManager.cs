@@ -7,7 +7,7 @@ namespace SaeedAzari.Core.CoreData.Abstraction.Manager
 	{
 		Task<bool> Any(Expression<Func<TData, bool>> filter, CancellationToken cancellationToken = default);
 		IQueryable<TData> AsQueryable();
-		Task<IEnumerable<TData>> Find(Expression<Func<TData, bool>> filter, CancellationToken cancellationToken = default);
-		Task<IEnumerable<TData>> GetAll(CancellationToken cancellationToken = default);
+		Task<List<TData>> Find(Expression<Func<TData, bool>> filter, CancellationToken cancellationToken = default);
+		Task<List<TData>> GetAll(CancellationToken cancellationToken = default);
 	}
 }

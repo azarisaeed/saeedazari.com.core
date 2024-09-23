@@ -1,6 +1,5 @@
 ﻿using SaeedAzari.core.entities;
 using SaeedAzari.core.entities.models;
-using SaeedAzari.Core.Repositories.Abstractions.Interfaces;
 using System.Linq.Expressions;
 namespace SaeedAzari.Core.Repositories.Abstractions.Interfaces.ReadOnly
 
@@ -10,10 +9,10 @@ namespace SaeedAzari.Core.Repositories.Abstractions.Interfaces.ReadOnly
         where TEntity : IAbstractEntity<TKey>
 {
 
-    Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken = default);
+    Task<List<TEntity>> GetAll(CancellationToken cancellationToken = default);
     Task<TEntity?> GetById(TKey id, CancellationToken cancellationToken = default);
-    Task<IEnumerable<TEntity>> GetByIds(IEnumerable<TKey> ids, CancellationToken cancellationToken = default);
-    Task<IEnumerable<TEntity>> Find(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default);
+    Task<List<TEntity>> GetByIds(IEnumerable<TKey> ids, CancellationToken cancellationToken = default);
+    Task<List<TEntity>> Find(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default);
     Task<IListResult<TEntity>> Find(IBaseSearchModel<TKey, TEntity> SearchModel, CancellationToken cancellationToken = default);
     Task<bool> Any(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default);
     IQueryable<TEntity> AsQueryable();

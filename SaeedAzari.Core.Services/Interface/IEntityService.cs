@@ -15,9 +15,9 @@ public interface IEntityService<TKey, TEntity>
     Task DeleteMany(IEnumerable<TKey> ids, CancellationToken cancellationToken = default);
     Task DeleteMany(IEnumerable<TEntity> Entities, CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken = default);
+    Task<List<TEntity>> GetAll(CancellationToken cancellationToken = default);
     Task<TEntity?> GetById(TKey id, CancellationToken cancellationToken = default);
-    Task<IEnumerable<TEntity>> GetByIds(IEnumerable<TKey> ids, CancellationToken cancellationToken = default);
+    Task<List<TEntity>> GetByIds(IEnumerable<TKey> ids, CancellationToken cancellationToken = default);
 }
 
 public interface IEntityService<TEntity> : IEntityService<Guid, TEntity>

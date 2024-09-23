@@ -4,82 +4,11 @@ using SaeedAzari.Core.Services.Abstractions.Interface;
 
 namespace SaeedAzari.Core.Services.Impeliments.Contexed
 {
-    public class EntityService<TKey, TEntity>(IEntityRepository<TKey, TEntity> repository) : IEntityService<TKey, TEntity>
-    where TKey : IEquatable<TKey>
-    where TEntity : IAbstractEntity<TKey>
-
+    public class EntityService<TKey, TEntity>(IEntityRepository<TKey, TEntity> repository) : EntityService<TKey, TEntity, IEntityRepository<TKey, TEntity>>(repository)
+        where TKey : IEquatable<TKey>
+        where TEntity : IAbstractEntity<TKey>
     {
-        protected readonly IEntityRepository<TKey, TEntity> Repository = repository;
 
-        public virtual async Task Delete(TKey id, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            await Repository.Delete(id, cancellationToken: cancellationToken);
-        }
-
-        public virtual async Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            return await Repository.GetAll(cancellationToken);
-        }
-
-        public virtual async Task<TEntity?> GetById(TKey id, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            return await Repository.GetById(id, cancellationToken);
-        }
-
-        public virtual async Task<IEnumerable<TEntity>> GetByIds(IEnumerable<TKey> ids, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            return await Repository.GetByIds(ids, cancellationToken);
-        }
-
-        public virtual async Task Create(TEntity entity, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            await Repository.Create(entity, cancellationToken: cancellationToken);
-        }
-
-        public virtual async Task Update(TEntity entity, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            await Repository.Update(entity, cancellationToken: cancellationToken);
-        }
-
-        public async Task CreateMany(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            await Repository.CreateMany(entities, cancellationToken: cancellationToken);
-        }
-
-        public async Task Delete(TEntity Entity, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            await Repository.Delete(Entity, cancellationToken: cancellationToken);
-        }
-
-        public async Task DeleteMany(IEnumerable<TKey> ids, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            await Repository.DeleteMany(ids, cancellationToken: cancellationToken);
-        }
-
-        public async Task DeleteMany(IEnumerable<TEntity> Entities, CancellationToken cancellationToken = default)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            await Repository.DeleteMany(Entities, cancellationToken: cancellationToken);
-        }
     }
 
     public class EntityService<TEntity>(IEntityRepository<TEntity> repository) : EntityService<Guid, TEntity>(repository), IEntityService<TEntity>
