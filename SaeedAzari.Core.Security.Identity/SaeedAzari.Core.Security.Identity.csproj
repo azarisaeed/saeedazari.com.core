@@ -1,35 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <VersionPrefix>1.2.4</VersionPrefix>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Title>Entity Framwork repository base classes </Title>
+    <Title>Saeed azari core Identiy</Title>
+    <Authors>saeed Azari</Authors>
     <Company>Saeed Azari</Company>
-    <Authors>Saeed Azari</Authors>
-    <Description>Base classes to work with entity framework database</Description>
-    <Copyright>Saeed Azari</Copyright>
+    <Description>this library provides all the neccessary functionality for authenticate with  identity Authentication</Description>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <VersionPrefix>1.0.1</VersionPrefix>
+    <IsPackable>true</IsPackable>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
-    <PackageReference Include="SaeedAzari.Core.Repositories.Abstractions" Version="1.2.4" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.10" />
   </ItemGroup>
+
   <ItemGroup>
     <None Include="LICENSE.txt" Pack="true" PackagePath="" />
 
     <None Update="Readme.md">
-      <Pack>True</Pack>
       <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
     </None>
   </ItemGroup>
 

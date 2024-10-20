@@ -40,6 +40,14 @@ namespace Microsoft.Extensions.DependencyInjection
             where TApplicationContext : class, IApplicationContext
         {
             services.AddScoped<IApplicationContext, TApplicationContext>();
+            services.AddScoped<TApplicationContext, TApplicationContext>();
+            return services;
+        }
+        public static IServiceCollection AddApplicationContext<TApplicationContext, TUserNameType>(this IServiceCollection services) where TUserNameType : class
+           where TApplicationContext : class, IApplicationContext<TUserNameType>
+        {
+            services.AddScoped<IApplicationContext<TUserNameType>, TApplicationContext>();
+            services.AddScoped<TApplicationContext, TApplicationContext>();
             return services;
         }
 

@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <Title>Saeed Azari domain service base</Title>
     <Authors>Saeed Azari</Authors>
-    <VersionPrefix>1.2.3</VersionPrefix>
+    <VersionPrefix>1.2.4</VersionPrefix>
     <Copyright>Saeed azari</Copyright>
     <FileVersion>$(VersionPrefix)</FileVersion>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SaeedAzari.Core.Repositories.Abstractions" Version="1.2.3" />
+    <PackageReference Include="SaeedAzari.Core.Repositories.Abstractions" Version="1.2.4" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENSE.txt" Pack="true" PackagePath="" />
